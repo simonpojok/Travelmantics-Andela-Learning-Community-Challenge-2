@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "817083589430",
+    "firebase_url": "https://andela-challenge-d11b5.firebaseio.com",
+    "project_id": "andela-challenge-d11b5",
+    "storage_bucket": "andela-challenge-d11b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817083589430:android:b4470d06b32c6715",
+        "android_client_info": {
+          "package_name": "com.example.travelmantics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817083589430-sm6pfrl84s2ljrdrhvmbvlqdhrecpq96.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.travelmantics",
+            "certificate_hash": "e3ab5672b3fb7e3b6ca8771183df299a2568c6dd"
+          }
+        },
+        {
+          "client_id": "817083589430-drpl7u31vb8qdla6cfcvumaqiv8gb64l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxVXk4esZi_BWEnR7dls6PDBjLFMTKrgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817083589430-drpl7u31vb8qdla6cfcvumaqiv8gb64l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
