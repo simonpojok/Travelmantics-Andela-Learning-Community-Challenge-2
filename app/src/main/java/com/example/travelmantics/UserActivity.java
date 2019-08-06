@@ -37,10 +37,9 @@ public class UserActivity extends AppCompatActivity {
 
     }
 
-    public static Intent createUserActivityIntent(Context context, FirebaseUser firebaseUser) {
+    public static Intent createUserActivityIntent(Context context) {
         Intent intent = new Intent();
         intent.setClass(context, UserActivity.class);
-        currentFirebaseUser = firebaseUser;
         return intent;
     }
 
