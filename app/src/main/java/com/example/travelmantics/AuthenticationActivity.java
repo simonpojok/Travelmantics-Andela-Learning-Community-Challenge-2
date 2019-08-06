@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -25,12 +27,15 @@ public class AuthenticationActivity extends AppCompatActivity {
     FirebaseUser user;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate()");
 
 
         if ( user == null ){
+            Log.d(TAG, "onCreate() new user");
             List<AuthUI.IdpConfig> providers = Arrays.asList(
                     new AuthUI.IdpConfig.EmailBuilder().build(),
                     new AuthUI.IdpConfig.GoogleBuilder().build()
@@ -45,7 +50,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         } else {
             Log.d(TAG, "onCreate() user already signed in");
-            startActivity(UserActivity.createUserActivityIntent(this, user));
+            startActivity(UserActivity.createUserActivityIntent(this));
             finish();
         }
 
@@ -61,10 +66,11 @@ public class AuthenticationActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK ) {
                 Log.d(TAG, "onActivityResult() Successfully signed in");
                 user = FirebaseAuth.getInstance().getCurrentUser();
-                startActivity(UserActivity.createUserActivityIntent(this, user));
+                startActivity(UserActivity.createUserActivityIntent(this));
                 finish();
             } else {
                 Log.d(TAG, "failed");
+
             }
         }
     }

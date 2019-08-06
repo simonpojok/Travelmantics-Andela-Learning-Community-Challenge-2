@@ -2,6 +2,7 @@ package com.example.travelmantics;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,8 @@ public class AdministratorActivity extends AppCompatActivity {
     private TravelDeal travelDeal;
     public static String TRAVEL_DEAL = "travelDeal";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +42,13 @@ public class AdministratorActivity extends AppCompatActivity {
         travelDealPrice = findViewById(R.id.travelDealPrice);
 
         Intent intent = getIntent();
-        travelDeal = null;
-//    intent.getSerializableExtra(TRAVEL_DEAL);
+        travelDeal = (TravelDeal) intent.getSerializableExtra(TRAVEL_DEAL);
 
         if (travelDeal == null){
             travelDeal = new TravelDeal();
         }
 
-        travelDealTitle.setText(travelDeal.getTravelDealtitle());
+        travelDealTitle.setText(travelDeal.getTravelDealTitle());
         travelDealDescription.setText(travelDeal.getTravelDealdescription());
         travelDealPrice.setText(travelDeal.getTravelDealprice());
         Log.d(TAG, "onStart() done");
@@ -95,13 +97,16 @@ public class AdministratorActivity extends AppCompatActivity {
 
     private void saveTravelDeal() {
         Log.d(TAG, "saveTravelDeal() start");
-        travelDeal.setTravelDealtitle(travelDealTitle.getText().toString());
+        travelDeal.setTravelDealTitle(travelDealTitle.getText().toString());
         travelDeal.setTravelDealdescription(travelDealDescription.getText().toString());
         travelDeal.setTravelDealprice(travelDealPrice.getText().toString());
         if ( travelDeal.getTravelDealId() == null){
+            Log.d(TAG, "saveTravelDeal() no Id new deal");
             databaseReference.push().setValue(travelDeal);
         } else {
             databaseReference.child(travelDeal.getTravelDealId()).setValue(travelDeal);
+            Log.d(TAG, "saveTravelDeal() save");
+            Log.d(TAG, travelDeal.toString());
         }
         cleanInputWidgets();
         Log.d(TAG, "saveTravelDeal() end");
@@ -113,5 +118,12 @@ public class AdministratorActivity extends AppCompatActivity {
         travelDealPrice.setText("");
         travelDealDescription.setText("");
         travelDealTitle.requestFocus();
+    }
+
+    public static Intent startAdministratorActivity(Context context) {
+        Log.d("AdministatorActivity", "startAdministratorActivity() from UserActivity() ");
+        Intent adminIntent = new Intent();
+        adminIntent.setClass(context, AdministratorActivity.class);
+        return adminIntent;
     }
 }

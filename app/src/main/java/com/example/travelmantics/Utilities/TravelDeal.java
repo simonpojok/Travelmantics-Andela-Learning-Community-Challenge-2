@@ -28,11 +28,11 @@ public class TravelDeal implements Serializable {
         this.travelDealId = travelDealId;
     }
 
-    public String getTravelDealtitle() {
+    public String getTravelDealTitle() {
         return travelDealtitle;
     }
 
-    public void setTravelDealtitle(String travelDealtitle) {
+    public void setTravelDealTitle(String travelDealtitle) {
         this.travelDealtitle = travelDealtitle;
     }
 

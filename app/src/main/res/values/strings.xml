@@ -6,5 +6,6 @@
     <string name="save_menu">save</string>
     <string name="insert_new_deal">New Travel Deal</string>
     <string name="delete_menu">delete</string>
+    <string name="error">Sorry seems that you have no internet</string>
 </resources>
 
