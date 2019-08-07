@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -28,10 +30,10 @@ public class TravelDealAdapter extends  RecyclerView.Adapter<TravelDealAdapter.T
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private ChildEventListener childEventListener;
+    private ImageView travelDealImage;
 
     public TravelDealAdapter() {
         Log.d(TAG, "onCreateViewHolder()");
-        FirebaseUtility.openFirebaseReference("travelDeals");
         firebaseDatabase = FirebaseUtility.firebaseDatabase;
         databaseReference = FirebaseUtility.databaseReference;
         travelDeals = FirebaseUtility.travelDeals;
@@ -93,9 +95,6 @@ public class TravelDealAdapter extends  RecyclerView.Adapter<TravelDealAdapter.T
     @Override
     public int getItemCount() {
         Log.d(TAG, "<<<<<<<<<<<<<<<< getItemCount() >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        if (travelDeals == null ){
-            return 0;
-        }
         return travelDeals.size();
     }
 
@@ -112,6 +111,8 @@ public class TravelDealAdapter extends  RecyclerView.Adapter<TravelDealAdapter.T
             travelDealTitle = itemView.findViewById(R.id.travelDealTitle);
             travelDealDescription = itemView.findViewById(R.id.travelDealDescription);
             travelDealPrice = itemView.findViewById(R.id.travelDealPrice);
+            travelDealImage = itemView.findViewById(R.id.travelDealImage);
+
             itemView.setOnClickListener(this);
             Log.d(ViewHolderTag, "TravelDealViewHolder() done ");
         }
@@ -125,6 +126,16 @@ public class TravelDealAdapter extends  RecyclerView.Adapter<TravelDealAdapter.T
             onClickIntent.putExtra(AdministratorActivity.TRAVEL_DEAL, travelDeals.get(position));
             view.getContext().startActivity(onClickIntent);
 
+        }
+
+        private void showImage(String url){
+            if ( url != null && url.isEmpty() == false){
+                Picasso.with(travelDealImage.getContext())
+                        .load(url)
+                        .resize(160, 160)
+                        .centerCrop()
+                        .into(travelDealImage);
+            }
         }
 
         public void bind(TravelDeal deal){
