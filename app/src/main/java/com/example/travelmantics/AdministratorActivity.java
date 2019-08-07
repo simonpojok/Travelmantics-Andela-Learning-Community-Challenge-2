@@ -49,8 +49,8 @@ public class AdministratorActivity extends AppCompatActivity {
         }
 
         travelDealTitle.setText(travelDeal.getTravelDealTitle());
-        travelDealDescription.setText(travelDeal.getTravelDealdescription());
-        travelDealPrice.setText(travelDeal.getTravelDealprice());
+        travelDealDescription.setText(travelDeal.getTravelDealDescription());
+        travelDealPrice.setText(travelDeal.getTravelDealPrice());
         Log.d(TAG, "onStart() done");
     }
 
@@ -98,8 +98,8 @@ public class AdministratorActivity extends AppCompatActivity {
     private void saveTravelDeal() {
         Log.d(TAG, "saveTravelDeal() start");
         travelDeal.setTravelDealTitle(travelDealTitle.getText().toString());
-        travelDeal.setTravelDealdescription(travelDealDescription.getText().toString());
-        travelDeal.setTravelDealprice(travelDealPrice.getText().toString());
+        travelDeal.setTravelDealDescription(travelDealDescription.getText().toString());
+        travelDeal.setTravelDealPrice(travelDealPrice.getText().toString());
         if ( travelDeal.getTravelDealId() == null){
             Log.d(TAG, "saveTravelDeal() no Id new deal");
             databaseReference.push().setValue(travelDeal);

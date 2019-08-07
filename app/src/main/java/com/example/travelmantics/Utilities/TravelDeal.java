@@ -4,20 +4,20 @@ import java.io.Serializable;
 
 public class TravelDeal implements Serializable {
     private String travelDealId;
-    private String travelDealtitle;
-    private String travelDealdescription;
-    private String travelDealprice;
-    private String travelDealimageUrl;
+    private String travelDealTitle;
+    private String travelDealDescription;
+    private String travelDealPrice;
+    private String travelDealImageUrl;
 
 
     public TravelDeal() {}
 
-    public TravelDeal(String travelDealId, String travelDealtitle, String travelDealdescription, String travelDealprice, String travelDealimageUrl) {
+    public TravelDeal(String travelDealId, String travelDealTitle, String travelDealdescription, String travelDealPrice, String travelDealImageUrl) {
         this.travelDealId = travelDealId;
-        this.travelDealtitle = travelDealtitle;
-        this.travelDealdescription = travelDealdescription;
-        this.travelDealprice = travelDealprice;
-        this.travelDealimageUrl = travelDealimageUrl;
+        this.travelDealTitle = travelDealTitle;
+        this.travelDealDescription = travelDealdescription;
+        this.travelDealPrice = travelDealPrice;
+        this.travelDealImageUrl = travelDealImageUrl;
     }
 
     public String getTravelDealId() {
@@ -29,34 +29,34 @@ public class TravelDeal implements Serializable {
     }
 
     public String getTravelDealTitle() {
-        return travelDealtitle;
+        return travelDealTitle;
     }
 
-    public void setTravelDealTitle(String travelDealtitle) {
-        this.travelDealtitle = travelDealtitle;
+    public void setTravelDealTitle(String travelDealTitle) {
+        this.travelDealTitle = travelDealTitle;
     }
 
-    public String getTravelDealdescription() {
-        return travelDealdescription;
+    public String getTravelDealDescription() {
+        return travelDealDescription;
     }
 
-    public void setTravelDealdescription(String travelDealdescription) {
-        this.travelDealdescription = travelDealdescription;
+    public void setTravelDealDescription(String travelDealDescription) {
+        this.travelDealDescription = travelDealDescription;
     }
 
-    public String getTravelDealprice() {
-        return travelDealprice;
+    public String getTravelDealPrice() {
+        return travelDealPrice;
     }
 
-    public void setTravelDealprice(String travelDealprice) {
-        this.travelDealprice = travelDealprice;
+    public void setTravelDealPrice(String travelDealPrice) {
+        this.travelDealPrice = travelDealPrice;
     }
 
-    public String getTravelDealimageUrl() {
-        return travelDealimageUrl;
+    public String getTravelDealImageUrl() {
+        return travelDealImageUrl;
     }
 
-    public void setTravelDealimageUrl(String travelDealimageUrl) {
-        this.travelDealimageUrl = travelDealimageUrl;
+    public void setTravelDealImageUrl(String travelDealImageUrl) {
+        this.travelDealImageUrl = travelDealImageUrl;
     }
 }

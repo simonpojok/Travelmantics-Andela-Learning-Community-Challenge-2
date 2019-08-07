@@ -129,8 +129,8 @@ public class TravelDealAdapter extends  RecyclerView.Adapter<TravelDealAdapter.T
 
         public void bind(TravelDeal deal){
             travelDealTitle.setText(deal.getTravelDealTitle());
-            travelDealDescription.setText(deal.getTravelDealdescription());
-            travelDealPrice.setText(deal.getTravelDealprice());
+            travelDealDescription.setText(deal.getTravelDealDescription());
+            travelDealPrice.setText(deal.getTravelDealPrice());
             Log.d(ViewHolderTag, "Data bind well ");
         }
     }
