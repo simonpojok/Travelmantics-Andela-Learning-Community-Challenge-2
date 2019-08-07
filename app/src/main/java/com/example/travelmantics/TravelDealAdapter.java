@@ -90,6 +90,7 @@ public class TravelDealAdapter extends  RecyclerView.Adapter<TravelDealAdapter.T
         Log.d(TAG, "<<<<<<<<<<<<<<<< onBindViewHolder >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         TravelDeal travelDeal = travelDeals.get(position);
         holder.bind(travelDeal);
+        Log.d(TAG, "<<<<<<<<<<<<<<<< onBindViewHolder done>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     }
 
     @Override
@@ -129,7 +130,7 @@ public class TravelDealAdapter extends  RecyclerView.Adapter<TravelDealAdapter.T
         }
 
         private void showImage(String url){
-            if ( url != null && url.isEmpty() == false){
+            if ( url != null && !url.isEmpty()){
                 Picasso.with(travelDealImage.getContext())
                         .load(url)
                         .resize(160, 160)
@@ -142,7 +143,11 @@ public class TravelDealAdapter extends  RecyclerView.Adapter<TravelDealAdapter.T
             travelDealTitle.setText(deal.getTravelDealTitle());
             travelDealDescription.setText(deal.getTravelDealDescription());
             travelDealPrice.setText(deal.getTravelDealPrice());
-            Log.d(ViewHolderTag, "Data bind well ");
+            showImage(deal.getTravelDealImageUrl());
+            Log.d(TAG, "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+            Log.d(TAG, "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+            Log.d(TAG, deal.getTravelDealTitle().toString() + " " +  deal.getTravelDealDescription().toString() + " " +  deal.getTravelDealPrice().toString());
+            Log.d(TAG, "bind(): " + deal.getTravelDealTitle().toString() + " " + deal.getTravelDealImageUrl().toString());
         }
     }
 }

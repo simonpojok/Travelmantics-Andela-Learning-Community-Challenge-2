@@ -38,11 +38,12 @@ public class AuthenticationActivity extends AppCompatActivity {
                     new AuthUI.IdpConfig.EmailBuilder().build(),
                     new AuthUI.IdpConfig.GoogleBuilder().build()
             );
-
+            Log.d(TAG, "onCreate() starting activity for result");
             startActivityForResult(
                     AuthUI.getInstance()
                             .createSignInIntentBuilder()
                             .setAvailableProviders(providers)
+                            .setIsSmartLockEnabled(false)
                             .build(), RC_SIGN_IN
             );
 
@@ -52,12 +53,13 @@ public class AuthenticationActivity extends AppCompatActivity {
             finish();
         }
 
-
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult returned result");
 
         if (requestCode == RC_SIGN_IN ){
             IdpResponse response = IdpResponse.fromResultIntent(data);

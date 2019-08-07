@@ -3,11 +3,14 @@ package com.example.travelmantics;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,9 +29,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 public class AdministratorActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
@@ -39,7 +45,7 @@ public class AdministratorActivity extends AppCompatActivity {
     private String TAG = getClass().getSimpleName();
     private TravelDeal travelDeal;
     public static String TRAVEL_DEAL = "travelDeal";
-    private static final int   PICTURE_RESULT = 2453;
+   private static final int   PICTURE_RESULT = 2453;
 
 
 
@@ -87,12 +93,14 @@ public class AdministratorActivity extends AppCompatActivity {
     private void showImage(String travelDealImageUrl) {
         Log.d(TAG, "showImage showing image");
         if ( travelDealImageUrl != null && !travelDealImageUrl.isEmpty()){
+            Log.d(TAG, "showImage() condition passed Image will be shown soon");
             int imageWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
             Picasso.with(this)
                     .load(travelDealImageUrl)
                     .resize(imageWidth, imageWidth*2/3)
                     .centerCrop()
                     .into(travelDealImage);
+            Log.d(TAG, "showImage() Image shown");
         }
 
     }
@@ -141,23 +149,57 @@ public class AdministratorActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if ( requestCode == PICTURE_RESULT ){
             if (resultCode == RESULT_OK){
-                Log.d(TAG, "onActivityResult started result ok");
+
+                final ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setTitle("Loading...");
+                progressDialog.show();
+
                 Uri imageUri = data.getData();
-                StorageReference ref = FirebaseUtility.storageReference.child(imageUri.getLastPathSegment());
-                ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Log.d(TAG, "onActivityResult file uploaded well");
-                        String url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                        String pictureName = taskSnapshot.getStorage().getPath();
-                        travelDeal.setTravelDealImageUrl(url);
-                        travelDeal.setTravelDealImageName(pictureName);
-                        Log.d(TAG, "Image URI: " + url + " PictureName " + pictureName);
-                        showImage(url);
+                final StorageReference ref = FirebaseUtility.storageReference.child(imageUri.getLastPathSegment());
 
 
-                    }
-                });
+                try {
+                    ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Log.d(TAG, "onSuccess: uri:" + uri.toString());
+                                    Toast.makeText(AdministratorActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+
+                                    String url = uri.toString();
+                                    String pictureName = taskSnapshot.getStorage().getPath();
+                                    travelDeal.setTravelDealImageUrl(url);
+                                    travelDeal.setTravelDealImageName(pictureName);
+                                    Log.d(TAG, "<<<<<<<<<<<<<<<<<<<  onActivityResult ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() >>>>>>>>>>>>>>>>>>>>>>>>>");
+                                    showImage(url);
+                                }
+                            });
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(AdministratorActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                            progressDialog.setMessage("Loaded " + (int)progress+"%");
+                        }
+                    });
+
+                } catch (Exception e ) {
+                    Toast.makeText(this, "There was unknown error in saving the file", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "there was error");
+                }
             }
 
         }

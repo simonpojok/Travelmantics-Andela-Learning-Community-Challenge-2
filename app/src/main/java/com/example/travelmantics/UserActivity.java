@@ -22,10 +22,6 @@ import com.google.android.gms.tasks.Task;
 
 public class UserActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-//    private static FirebaseUser currentFirebaseUser;
-//    private FirebaseDatabase firebaseDatabase;
-//    private DatabaseReference databaseReference;
-//    private ChildEventListener childEventListener;
 
 
     @Override

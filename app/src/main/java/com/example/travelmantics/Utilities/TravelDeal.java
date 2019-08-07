@@ -1,5 +1,7 @@
 package com.example.travelmantics.Utilities;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 public class TravelDeal implements Serializable {
@@ -66,6 +68,7 @@ public class TravelDeal implements Serializable {
     }
 
     public String getTravelDealImageName(){
+        Log.d(getClass().getSimpleName(), "<<<<<<<<<<< image link visted ");
         return travelDealImageName;
     }
 }
