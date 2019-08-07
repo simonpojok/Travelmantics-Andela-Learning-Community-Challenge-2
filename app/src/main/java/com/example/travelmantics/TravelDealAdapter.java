@@ -144,10 +144,6 @@ public class TravelDealAdapter extends  RecyclerView.Adapter<TravelDealAdapter.T
             travelDealDescription.setText(deal.getTravelDealDescription());
             travelDealPrice.setText(deal.getTravelDealPrice());
             showImage(deal.getTravelDealImageUrl());
-            Log.d(TAG, "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-            Log.d(TAG, "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-            Log.d(TAG, deal.getTravelDealTitle().toString() + " " +  deal.getTravelDealDescription().toString() + " " +  deal.getTravelDealPrice().toString());
-            Log.d(TAG, "bind(): " + deal.getTravelDealTitle().toString() + " " + deal.getTravelDealImageUrl().toString());
         }
     }
 }
