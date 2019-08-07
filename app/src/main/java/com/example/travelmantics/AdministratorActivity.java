@@ -73,10 +73,12 @@ public class AdministratorActivity extends AppCompatActivity {
         travelDealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, ".................. selecting image ......................");
                 Intent loadImageIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 loadImageIntent.setType("image/jpeg");
                 loadImageIntent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                startActivityForResult(loadImageIntent.createChooser(loadImageIntent, "Insert Picture"), PICTURE_RESULT);
+                startActivityForResult(Intent.createChooser(loadImageIntent, "Insert Picture"), PICTURE_RESULT);
+                Log.d(TAG, ".................. image selected  ......................");
             }
         });
         Log.d(TAG, "onStart() done");
@@ -123,13 +125,13 @@ public class AdministratorActivity extends AppCompatActivity {
         Log.d(TAG, "onCreateOptionsMenu start");
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.admin_activity_menu, menu);
-        if (FirebaseUtility.isAdmin){
-            menu.findItem(R.id.delete_menu).setVisible(true);
-            menu.findItem(R.id.save_menu).setVisible(true);
-        } else {
-            menu.findItem(R.id.delete_menu).setVisible(true);
-            menu.findItem(R.id.save_menu).setVisible(true);
-        }
+//        if (FirebaseUtility.isAdmin){
+//            menu.findItem(R.id.delete_menu).setVisible(true);
+//            menu.findItem(R.id.save_menu).setVisible(true);
+//        } else {
+//            menu.findItem(R.id.delete_menu).setVisible(true);
+//            menu.findItem(R.id.save_menu).setVisible(true);
+//        }
         return super.onCreateOptionsMenu(menu);
     }
 
