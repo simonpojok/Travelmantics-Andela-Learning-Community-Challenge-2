@@ -2,6 +2,7 @@ package com.example.travelmantics;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,11 +45,11 @@ public class UserActivity extends AppCompatActivity {
         inflater.inflate(R.menu.user_activity_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.insert_menu);
 
-//        if (FirebaseUtility.isAdmin){
-//            menuItem.setVisible(true);
-//        } else {
-//            menuItem.setVisible(false);
-//        }
+        if (FirebaseUtility.isAdmin){
+            menuItem.setVisible(true);
+        } else {
+            menuItem.setVisible(false);
+        }
 
         return super.onCreateOptionsMenu(menu);
 
@@ -92,6 +93,7 @@ public class UserActivity extends AppCompatActivity {
         RecyclerView rvTravelDeals = findViewById(R.id.rvTravelDeals);
         final TravelDealAdapter adapter = new TravelDealAdapter();
         rvTravelDeals.setAdapter(adapter);
+        rvTravelDeals.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvTravelDeals.setLayoutManager(linearLayoutManager);
         FirebaseUtility.attachListener();

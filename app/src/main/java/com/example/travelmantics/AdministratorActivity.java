@@ -42,6 +42,7 @@ public class AdministratorActivity extends AppCompatActivity {
     private EditText travelDealDescription;
     private EditText travelDealPrice;
     private ImageView travelDealImage;
+    Button travelDealButton;
     private String TAG = getClass().getSimpleName();
     private TravelDeal travelDeal;
     public static String TRAVEL_DEAL = "travelDeal";
@@ -74,7 +75,7 @@ public class AdministratorActivity extends AppCompatActivity {
         travelDealDescription.setText(travelDeal.getTravelDealDescription());
         travelDealPrice.setText(travelDeal.getTravelDealPrice());
         showImage(travelDeal.getTravelDealImageUrl());
-        Button travelDealButton = findViewById(R.id.travelDealButton);
+        travelDealButton = findViewById(R.id.travelDealButton);
 
         travelDealButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,13 +134,15 @@ public class AdministratorActivity extends AppCompatActivity {
         Log.d(TAG, "onCreateOptionsMenu start");
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.admin_activity_menu, menu);
-//        if (FirebaseUtility.isAdmin){
-//            menu.findItem(R.id.delete_menu).setVisible(true);
-//            menu.findItem(R.id.save_menu).setVisible(true);
-//        } else {
-//            menu.findItem(R.id.delete_menu).setVisible(true);
-//            menu.findItem(R.id.save_menu).setVisible(true);
-//        }
+        if (FirebaseUtility.isAdmin){
+            menu.findItem(R.id.delete_menu).setVisible(true);
+            menu.findItem(R.id.save_menu).setVisible(true);
+            enableEditTexts(true);
+        } else {
+            menu.findItem(R.id.delete_menu).setVisible(false);
+            menu.findItem(R.id.save_menu).setVisible(false);
+            enableEditTexts(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -266,5 +269,7 @@ public class AdministratorActivity extends AppCompatActivity {
         travelDealTitle.setEnabled(isEnabled);
         travelDealDescription.setEnabled(isEnabled);
         travelDealPrice.setEnabled(isEnabled);
+        travelDealImage.setEnabled(isEnabled);
+        travelDealButton.setEnabled(isEnabled);
     }
 }

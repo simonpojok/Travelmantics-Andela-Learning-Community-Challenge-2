@@ -46,10 +46,10 @@ public class FirebaseUtility {
             firebaseAuth =  FirebaseAuth.getInstance();
             caller = callerActivity;
 
-            authStateListener = new FirebaseAuth.AuthStateListener(){
+            authStateListener = new FirebaseAuth.AuthStateListener() {
                 @Override
                 public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    if ( firebaseAuth.getCurrentUser() == null){
+                    if (firebaseAuth.getCurrentUser() == null) {
                         FirebaseUtility.signIn();
                     } else {
                         String userId = firebaseAuth.getUid();
